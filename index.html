@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>VR-Photosense monitoring</title>
+    <style>
+        body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages > li { padding: 0.5rem 1rem; }
+        #messages > li:nth-child(odd) { background: #efefef; }
+      </style>
+  </head>
+  <body>
+    <p id="messages">VR-Photosense log</p> 
+
+  </body>
+
+    <script>
+    // Code injected by live-server
+    var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+    var address = protocol + window.location.host;
+    console.log(address);
+    var socket = new WebSocket(address);
+
+    (function() {
+        socket.onmessage = function(msg) {
+            var node = document.createElement("li");                 
+            var textnode = document.createTextNode(msg.data);      
+            node.appendChild(textnode);  
+            document.getElementById("messages").appendChild(node); 
+            window.scrollTo(0,document.body.scrollHeight);
+        };
+        console.log('Web Socket enabled.');
+    })();
+
+    
+
+    </script>
+
+</html>
