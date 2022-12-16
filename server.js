@@ -1,3 +1,5 @@
+import { router as logsRouter } from './router.js';
+
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -13,10 +15,15 @@ const wss = new WebSocket.Server({ noServer: true, clientTracking: true });
 
 const os = require('os');
 
+const logsRouter = new Router();
+
+app.use('/logs', logsRouter);
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+/*
 app.get('/logs', (req, res) => {
   fs.readdir(__dirname + '/Logs', (err, files) => {
     if (err)
@@ -35,7 +42,7 @@ app.get('/:date', (req, res) => {
   var date = req.params.date;
   res.sendFile(__dirname + '/Logs/' + date + '.log');
 });
-
+*/
 
 wss.on('connection', function connection(ws, request) {
     let date = new Date();
