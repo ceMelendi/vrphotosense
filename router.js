@@ -1,8 +1,5 @@
-import DynamoDb from "cyclic-dynamodb";
-import { Router } from "express";
-
-// Initialize Express router
-export const router = Router();
+const dynamodb = require("cyclic-dynamodb");
+const router = require("router");
 
 // Initialize AWS DynamoDB
 const db = DynamoDb(process.env.CYCLIC_DB);
