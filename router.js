@@ -1,9 +1,9 @@
-const dynamodb = require("cyclic-dynamodb");
+
 const router = require("router");
 
 // Initialize AWS DynamoDB
-const CyclicDb = require("@cyclic.sh/dynamodb");
-const db = CyclicDb("excited-shorts-toadCyclicDB");
+const CyclicDb = require("cyclic-dynamodb");
+const db = CyclicDb(process.env.CYCLIC_DB);
 const logsCollection = db.collection("logs");
 
 // ------------------------------------
