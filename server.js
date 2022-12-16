@@ -1,5 +1,3 @@
-//import { router as logsRouter } from './router';
-const logsRouter = require('router');
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -9,13 +7,18 @@ const fs = require('fs');
 
 const url = require('url');
 
-
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ noServer: true, clientTracking: true });
 
 const os = require('os');
 
-app.use('/logs', logsRouter);
+const router = express.Router();
+
+// Initialize AWS DynamoDB
+const CyclicDb = require("cyclic-dynamodb");
+const db = CyclicDb(process.env.CYCLIC_DB);
+const logsCollection = db.collection("logs");
+
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
@@ -41,6 +44,39 @@ app.get('/:date', (req, res) => {
   res.sendFile(__dirname + '/Logs/' + date + '.log');
 });
 */
+
+// ------------------------------------
+// GET ROUTES
+// ------------------------------------
+
+// Get all logs
+router.get("/logs", async (req, res) => {
+  const { results: logsMetadata } = await logsCollection.list();
+
+  const logs = await Promise.all(
+      logsMetadata.map(async ({ key }) => (await logsCollection.get(key)).props)
+  );
+
+  let fileList = logs.filter(file => file.endsWith('.log'));
+  let names = fileList.map(file => file.substring(0, file.length - 4));
+
+  res.render('logs.twig', {files: names});
+});
+
+router.get('/:date', async (req, res) => {
+  var date = req.params.date;
+
+  try {
+      const { props: log } = await logsCollection.get(date);
+      res.send(log);
+  } catch (err) {
+      console.log(err.message, `Log with date ${date} does not exist`);
+      res.sendStatus(404);
+  }
+
+  //res.sendFile(__dirname + '/Logs/' + date + '.log');
+});
+
 
 wss.on('connection', function connection(ws, request) {
     let date = new Date();
