@@ -1,5 +1,5 @@
-
-const router = require("router");
+const express = require("express");
+const router = express.Router();
 
 // Initialize AWS DynamoDB
 const CyclicDb = require("cyclic-dynamodb");
