@@ -15,8 +15,6 @@ const wss = new WebSocket.Server({ noServer: true, clientTracking: true });
 
 const os = require('os');
 
-const logsRouter = new Router();
-
 app.use('/logs', logsRouter);
 
 app.get('/', (req, res) => {
