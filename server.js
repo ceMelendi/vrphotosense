@@ -1,5 +1,5 @@
-import { router as logsRouter } from './router';
-
+//import { router as logsRouter } from './router';
+const logsRouter = require('router');
 const express = require('express');
 const app = express();
 const http = require('http');
