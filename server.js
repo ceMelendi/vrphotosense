@@ -1,4 +1,4 @@
-import { router as logsRouter } from './router.js';
+import { router as logsRouter } from './router';
 
 const express = require('express');
 const app = express();
