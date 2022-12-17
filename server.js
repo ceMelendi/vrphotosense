@@ -13,9 +13,9 @@ const wss = new WebSocket.Server({ noServer: true, clientTracking: true });
 const os = require('os');
 
 const { MongoClient } = require("mongodb");
-const url =
+const urlStr =
     'mongodb+srv://UO276077:Bbhk2TG5pUpO848Y@cluster0.vtzwtlq.mongodb.net/?retryWrites=true&w=majority';
-app.set('connectionStrings', url);
+app.set('connectionStrings', urlStr);
 
 //const router = express.Router();
 const path = require('path');
