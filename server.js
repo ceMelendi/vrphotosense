@@ -15,7 +15,7 @@ const os = require('os');
 const { MongoClient } = require("mongodb");
 const urlStr =
     'mongodb+srv://UO276077:Bbhk2TG5pUpO848Y@cluster0.vtzwtlq.mongodb.net/?retryWrites=true&w=majority';
-app.set('connectionStrings', urlStr);
+//app.set('connectionStrings', urlStr);
 
 //const router = express.Router();
 const path = require('path');
@@ -55,12 +55,13 @@ app.get('/:date', (req, res) => {
 app.get("/logs", async (req, res) => {
   try{
     
-    const client = await MongoClient.connect(app.get('connectionStrings'));
-    const db = client.db("vrphotosense");
+    const client = await MongoClient.connect(urlStr);
+    /*const db = client.db("vrphotosense");
     const collectionName = 'logs';
     const collection = db.collection(collectionName);
     
-    res.render('logs.twig', {files: collection});
+    res.render('logs.twig', {files: collection});*/
+    res.send('ok');
 
   } catch (err) {
     throw err;
