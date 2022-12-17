@@ -13,6 +13,7 @@ const wss = new WebSocket.Server({ noServer: true, clientTracking: true });
 const os = require('os');
 
 const router = express.Router();
+const path = require('path');
 
 
 app.get('/', (req, res) => {
