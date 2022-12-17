@@ -60,7 +60,7 @@ app.get("/logs", async (req, res) => {
     const collectionName = 'logs';
     const collection = db.collection(collectionName);
     
-    res.render('logs.twig', {files: names});
+    res.render('logs.twig', {files: collection});
 
   } catch (err) {
     throw err;
