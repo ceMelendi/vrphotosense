@@ -21,8 +21,8 @@ app.set('connectionStrings', urlStr);
 const path = require('path');
 
 
-let logsRepository = require("./repositories/logsRepository.js");
-logsRepository.init(app, MongoClient);
+//let logsRepository = require("./repositories/logsRepository.js");
+//logsRepository.init(app, MongoClient);
 //require("./routes/logRouter.js")(app, logsRepository);
 
 
