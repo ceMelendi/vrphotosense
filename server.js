@@ -55,7 +55,7 @@ app.get('/:date', (req, res) => {
 app.get("/logs", async (req, res) => {
   try{
     
-    const client = await MongoClient.connect(get('connectionStrings'));
+    const client = await MongoClient.connect(app.get('connectionStrings'));
     const db = client.db("vrphotosense");
     const collectionName = 'logs';
     const collection = db.collection(collectionName);
