@@ -45,7 +45,7 @@ app.get('/:date', (req, res) => {
 // ------------------------------------
 
 // Get all logs
-router.get("/logs", async (req, res) => {
+app.get("/logs", async (req, res) => {
   /*const { results: logsMetadata } = await logsCollection.list();
 
   const logs = await Promise.all(
@@ -69,7 +69,7 @@ router.get("/logs", async (req, res) => {
   })
 });
 
-router.get('/:date', async (req, res) => {
+app.get('/:date', async (req, res) => {
   var date = req.params.date;
 
   try {
