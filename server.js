@@ -12,8 +12,18 @@ const wss = new WebSocket.Server({ noServer: true, clientTracking: true });
 
 const os = require('os');
 
-const router = express.Router();
+const { MongoClient } = require("mongodb");
+const url =
+    'mongodb+srv://UO276077:Bbhk2TG5pUpO848Y@cluster0.vtzwtlq.mongodb.net/?retryWrites=true&w=majority';
+app.set('connectionStrings', url);
+
+//const router = express.Router();
 const path = require('path');
+
+
+let logsRepository = require("./repositories/logsRepository.js");
+logsRepository.init(app, MongoClient);
+//require("./routes/logRouter.js")(app, logsRepository);
 
 
 app.get('/', (req, res) => {
@@ -41,23 +51,21 @@ app.get('/:date', (req, res) => {
 });
 */
 
-// ------------------------------------
-// GET ROUTES
-// ------------------------------------
-
 // Get all logs
 app.get("/logs", async (req, res) => {
-  /*const { results: logsMetadata } = await logsCollection.list();
+  try{
+    
+    const client = await MongoClient.connect(get('connectionStrings'));
+    const db = client.db("vrphotosense");
+    const collectionName = 'logs';
+    const collection = db.collection(collectionName);
+    
+    res.render('logs.twig', {files: names});
 
-  const logs = await Promise.all(
-      logsMetadata.map(async ({ key }) => (await logsCollection.get(key)).props)
-  );
-
-  let fileList = logs.filter(file => file.endsWith('.log'));
-  let names = fileList.map(file => file.substring(0, file.length - 4));
-
-  res.render('logs.twig', {files: names});*/
-  fs.readdir( path.join(__dirname, 'Logs'), (err, files) => {
+  } catch (err) {
+    throw err;
+  }
+  /*fs.readdir( path.join(__dirname, 'Logs'), (err, files) => {
     if (err)
     console.log(err);
     else {
@@ -67,7 +75,7 @@ app.get("/logs", async (req, res) => {
       
       res.render('logs.twig', {files: names});
     }      
-  })
+  })*/
 });
 
 app.get('/:date', async (req, res) => {
