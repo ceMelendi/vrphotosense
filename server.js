@@ -56,7 +56,7 @@ app.get("/logs", async (req, res) => {
   let names = fileList.map(file => file.substring(0, file.length - 4));
 
   res.render('logs.twig', {files: names});*/
-  fs.readdir('/Logs', (err, files) => {
+  fs.readdir( path.join(__dirname, 'Logs'), (err, files) => {
     if (err)
     console.log(err);
     else {
