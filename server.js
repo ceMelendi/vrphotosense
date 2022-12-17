@@ -14,11 +14,6 @@ const os = require('os');
 
 const router = express.Router();
 
-// Initialize AWS DynamoDB
-const CyclicDb = require("cyclic-dynamodb");
-const db = CyclicDb(process.env.CYCLIC_DB);
-const logsCollection = db.collection("logs");
-
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
