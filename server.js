@@ -12,13 +12,14 @@ const wss = new WebSocket.Server({ noServer: true, clientTracking: true });
 
 const os = require('os');
 
+/*//MongoDB
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://UO276077:Bbhk2TG5pUpO848Y@cluster0.vtzwtlq.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect();
+client.connect();*/
 
 //const router = express.Router();
-const path = require('path');
+//const path = require('path');
 
 
 //let logsRepository = require("./repositories/logsRepository.js");
@@ -30,7 +31,8 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-/*
+
+/*// Get logs from fs
 app.get('/logs', (req, res) => {
   fs.readdir(__dirname + '/Logs', (err, files) => {
     if (err)
@@ -48,10 +50,10 @@ app.get('/logs', (req, res) => {
 app.get('/:date', (req, res) => {
   var date = req.params.date;
   res.sendFile(__dirname + '/Logs/' + date + '.log');
-});
-*/
+});*/
 
-// Get all logs
+
+/*// Get all logs from db
 app.get("/logs", async (req, res) => {
   try{
     
@@ -66,17 +68,6 @@ app.get("/logs", async (req, res) => {
   } catch (err) {
     throw err;
   }
-  /*fs.readdir( path.join(__dirname, 'Logs'), (err, files) => {
-    if (err)
-    console.log(err);
-    else {
-      console.log("\nCurrent directory filenames:");
-      let fileList = files.filter(file => file.endsWith('.log'));
-      let names = fileList.map(file => file.substring(0, file.length - 4));
-      
-      res.render('logs.twig', {files: names});
-    }      
-  })*/
 });
 
 app.get('/:date', async (req, res) => {
@@ -91,7 +82,7 @@ app.get('/:date', async (req, res) => {
   }
 
   //res.sendFile(__dirname + '/Logs/' + date + '.log');
-});
+});*/
 
 
 wss.on('connection', function connection(ws, request) {
@@ -118,11 +109,11 @@ wss.on('connection', function connection(ws, request) {
           client.send(msgStr);
         }
       });
-      /*// Write on the log file
+      // Write on the log file
       fs.appendFile(fileLog, msgStr + os.EOL, 'utf8', (err) => {
         if (err) throw err;
         console.log("error writing file");
-      });*/
+      });
     });
     // What to do when client disconnect?
     ws.on('close', function(connection) {
