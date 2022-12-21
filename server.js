@@ -109,11 +109,11 @@ wss.on('connection', function connection(ws, request) {
           client.send(msgStr);
         }
       });
-      // Write on the log file
+      /*// Write on the log file
       fs.appendFile(fileLog, msgStr + os.EOL, 'utf8', (err) => {
         if (err) throw err;
         console.log("error writing file");
-      });
+      });*/
     });
     // What to do when client disconnect?
     ws.on('close', function(connection) {
